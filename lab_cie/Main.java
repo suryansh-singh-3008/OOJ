@@ -58,7 +58,6 @@ class SelectionSort implements Sortable{
 
         }
         for(int i=0;i<=n-1;i++){
-            
             for(int j=i;j<n-i-1;j++){
                 int min=arr[j];
                 if(min>arr[j+1]){
@@ -91,4 +90,5 @@ class Main{
         bs.sort();
         ss.sort();
     }
+
 }
