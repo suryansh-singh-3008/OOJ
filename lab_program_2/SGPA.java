@@ -1,79 +1,69 @@
-import java.util.Scanner;
-class Subject{
-    int marks,credits,grade;
-}
-class Student
-{
-String usn,name;
-double sgpa;
-Subject sub[]= new Subject[7];
-Scanner sc=new Scanner(System.in);
-Student(){for(int i=0;i<7;i++)
-sub[i]=new Subject();}
-void AcceptDetails()
-{
+package Electricity;
 
-System.out.print("Enter USN:");
-usn= sc.next();
-System.out.println("Enter the name of student:");
-name= sc.next();
-System.out.println("Enter details of credits and marks in order for 7 subjects:");
-for(int i=0;i<7;i++)
-{
-System.out.println("Enter credits for subject" + (i+1)+":");
-sub[i].credits=sc.nextInt();
-System.out.println("Enter marks for "+ (i+1)+ ":");
-sub[i].marks=sc.nextInt();
-}
-}
-void Display()
-{
-System.out.println("STUDENT DETAILS");
-System.out.println("USN:"+ usn);
-System.out.println("NAME:"+ name);
-for (int i=0;i<7;i++)
-{
-System.out.println("Subject "+ (i+1)+ "- CREDITS:"+ sub[i].credits+ ",MARKS: "+ sub[i].marks);
-}
-}
-double calc()
-{
-int totalCredits=0;
-double totalGradePoints=0;
-for(int i=0;i<7;i++)
-{
-totalCredits+= sub[i].credits;
-totalGradePoints+= gradepoints(sub[i].marks)*sub[i].credits;
-}
-return totalGradePoints/totalCredits;
+import java.io.*;
 
-}
-int gradepoints(int marks)
-{
-if(marks>=100) return 10;
-else return marks/10+1;
-/*else if(marks>=70) return 8;
-else if(marks>=60) return 7;
-else if(marks>=50) return 6;
-else if(marks>=40) return 5;
-else return 0*/
-}
-}
-public class SGPA
-{
-public static void main(String[] a)
-{
-System.out.println("Suryansh Singh\n 1BF24CS309");
-Scanner sc= new Scanner(System.in);
-System.out.println("Enter the number of students: ");
-int numstudent= sc.nextInt();
-Student student[]=new Student[numstudent];
-for (int i=0;i< numstudent;i++)
-{
-student[i]=new Student();
-student[i].AcceptDetails();
-student[i].Display();
-System.out.println("\nSGPA: "+ student[i].calc());
-}
-}
+public class ElectricityBill {
+
+    String name;
+    int units;
+    String type;
+    double bill;
+
+    ElectricityBill(String name, int units, String type) {
+        this.name = name;
+        this.units = units;
+        this.type = type;
+    }
+
+    void calculateBill() {
+        if (type.equalsIgnoreCase("household")) {
+            if(units<100){
+                bill = units * 4;}
+            else if(units>=100 && units <= 200)
+                bill = units*7;
+            else{
+                bill = units*9;
+            }
+        } else if (type.equalsIgnoreCase("commercial")) {
+            if(units<100){
+                bill = units * 7.5;}
+            else if(units>=100 && units <= 500)
+                bill = units*9;
+            else{
+                bill = units*11.5;
+            }
+        } else {
+            bill = 0;
+        }
+    }
+
+    void displayBill() {
+        System.out.println("\n--- Electricity Bill ---");
+        System.out.println("Consumer Name : " + name);
+        System.out.println("Connection Type : " + type);
+        System.out.println("Units Consumed : " + units);
+        System.out.println("Bill Amount : Rs " + bill);
+    }
+
+    public static void main(String[] args) {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.print("Enter Consumer Name: ");
+            String name = br.readLine();
+
+            System.out.print("Enter Units Consumed: ");
+            int units = Integer.parseInt(br.readLine());
+
+            System.out.print("Enter Connection Type (Household/Commercial): ");
+            String type = br.readLine();
+
+            ElectricityBill eb = new ElectricityBill(name, units, type);
+            eb.calculateBill();
+            eb.displayBill();
+
+        } catch (Exception e) {
+            System.out.println("Invalid Input!");
+        }
+    }
 }
